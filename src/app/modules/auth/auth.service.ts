@@ -116,8 +116,36 @@ const myProfile = async (
   return existUser
 }
 
+const updateMyProfile = async (
+  payload: Partial<IUser>,
+  updatedData: Partial<IUser>
+): Promise<Partial<IUser> | null> => {
+  const existUser = await User.findOne({ email: payload.email, role: payload.role });
+
+  if (!existUser) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Profile Not Found');
+  }
+
+  if (updatedData?.email) {
+    delete updatedData.email;
+  }
+
+  if (updatedData?.password) {
+    delete updatedData.password;
+  }
+
+  if (updatedData?.role) {
+    delete updatedData.role;
+  }
+
+  const updatedUser = await User.findByIdAndUpdate({ _id: existUser?._id }, { ...updatedData }, { new: true });
+
+  return updatedUser
+}
+
 export const AuthService = {
   loginUser,
   traineeRegister,
   myProfile,
+  updateMyProfile,
 }

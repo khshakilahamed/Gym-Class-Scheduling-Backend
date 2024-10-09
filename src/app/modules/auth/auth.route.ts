@@ -11,5 +11,10 @@ router.get(
   auth(ENUM_USER_ROLE.TRAINEE),
   AuthController.myProfile,
 )
+router.patch(
+  '/update-my-profile',
+  auth(ENUM_USER_ROLE.TRAINEE),
+  AuthController.updateMyProfile,
+)
 
 export const AuthRoute = router

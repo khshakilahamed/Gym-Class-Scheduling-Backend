@@ -87,8 +87,26 @@ const myProfile = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const updateMyProfile = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { ...userData } = req.user
+    const { ...updatedData } = req.body
+    const result = await AuthService.updateMyProfile(userData as Partial<IUser>, updatedData)
+
+    sendResponse<Partial<IUser | null>>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Successfully registered',
+      data: result,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const AuthController = {
   loginUser,
   traineeRegister,
   myProfile,
+  updateMyProfile
 }

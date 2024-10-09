@@ -1,7 +1,10 @@
 import express from 'express'
 import { UserController } from './user.controller'
+import auth from '../../middlewares/auth'
+import { ENUM_USER_ROLE } from '../../../enums/user'
 const router = express.Router()
 
-router.post('/createTrainer', UserController.createTrainer)
+router.post('/create-trainer', auth(ENUM_USER_ROLE.ADMIN), UserController.createTrainer)
+router.patch('/update-user/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.updateUser)
 
 export const UserRoute = router
