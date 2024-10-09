@@ -19,5 +19,6 @@ export type UserModel = {
 } & Model<IUser>
 
 export type ICreateUserResponse = {
-    user: Partial<IUser>
-  }
+  // user: Partial<IUser>
+  user: Omit<IUser, 'password'>
+}

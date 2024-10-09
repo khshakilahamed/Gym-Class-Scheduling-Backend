@@ -4,9 +4,7 @@ import { User } from '../user/user.model'
 import ApiError from '../../../errors/ApiError'
 
 const createTrainer = async (payload: IUser): Promise<ICreateUserResponse> => {
-  const existUser = await User.findOne({ email: payload.email }).select(
-    '-password',
-  )
+  const existUser = await User.findOne({ email: payload.email }).select("name email role avatar")
 
   if (existUser) {
     throw new ApiError(httpStatus.CONFLICT, 'User Already Exist')

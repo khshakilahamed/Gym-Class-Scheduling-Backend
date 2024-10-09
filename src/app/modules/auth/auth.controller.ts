@@ -5,6 +5,7 @@ import { ILoginRegisterResponse } from './auth.interface'
 import httpStatus from 'http-status'
 import config from '../../../config'
 import ApiError from '../../../errors/ApiError'
+import { IUser } from '../user/user.interface'
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -70,7 +71,24 @@ const traineeRegister = async (
   }
 }
 
+const myProfile = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { ...userData } = req.user
+    const result = await AuthService.myProfile(userData as Partial<IUser>)
+
+    sendResponse<Partial<IUser | null>>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Successfully registered',
+      data: result,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const AuthController = {
   loginUser,
   traineeRegister,
+  myProfile,
 }

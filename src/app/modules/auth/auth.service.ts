@@ -108,7 +108,16 @@ const traineeRegister = async (
   }
 }
 
+const myProfile = async (
+  payload: Partial<IUser>,
+): Promise<Partial<IUser> | null> => {
+  const existUser = await User.findOne({ email: payload.email })
+
+  return existUser
+}
+
 export const AuthService = {
   loginUser,
   traineeRegister,
+  myProfile,
 }
