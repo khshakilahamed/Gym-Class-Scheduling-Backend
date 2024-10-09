@@ -1,3 +1,7 @@
+## Important Links
+
+- [ER Diagram Link](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
+
 ## Project Discussion:
 
 The Gym Class Scheduling and Membership Management System is designed to manage gym operations efficiently. The system defines three roles: Admin, Trainer, and Trainee, each with specific permissions. Admins are responsible for creating and managing trainers, scheduling classes, and assigning trainers to these schedules. Each day can have a maximum of five class schedules, with each class lasting two hours. Trainers conduct the classes and can view their assigned class schedules but cannot create new schedules or manage trainee profiles. Trainees can create and manage their own profiles and book class schedules if there is availability, with a maximum of ten trainees per schedule.
