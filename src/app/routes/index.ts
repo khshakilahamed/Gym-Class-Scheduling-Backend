@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from 'express'
-import { UserRoutes } from '../modules/user/user.route'
+import { UserRoute } from '../modules/user/user.route'
+import { AuthRoute } from '../modules/auth/auth.route'
 
 const router = express.Router()
 
 const moduleRoutes: any[] = [
   {
     path: '/users',
-    route: UserRoutes,
+    route: UserRoute,
+  },
+  {
+    path: '/auth',
+    route: AuthRoute,
   },
 ]
 

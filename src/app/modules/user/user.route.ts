@@ -4,4 +4,4 @@ const router = express.Router()
 
 router.post('/createTrainer', UserController.createTrainer)
 
-export const UserRoutes = router
+export const UserRoute = router

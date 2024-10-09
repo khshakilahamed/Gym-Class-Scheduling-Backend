@@ -15,7 +15,7 @@ const globalErrorHandler: ErrorRequestHandler = (
   let message = 'Something went wrong !'
   let errorMessages: IGenericErrorMessage[] = []
 
-  console.log(error.name)
+  // console.log(error.name)
 
   if (error?.name === 'ValidatorError' || error?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(error)

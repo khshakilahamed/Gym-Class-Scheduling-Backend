@@ -2,6 +2,7 @@ import express from 'express'
 import { AuthController } from './auth.controller'
 const router = express.Router()
 
-router.post('/createTrainer', AuthController.createTrainer)
+router.post('/login', AuthController.loginUser)
+router.post('/register', AuthController.traineeRegister) // trainee register only
 
-export const AuthRoutes = router
+export const AuthRoute = router
