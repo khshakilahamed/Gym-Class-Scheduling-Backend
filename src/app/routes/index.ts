@@ -2,6 +2,7 @@
 import express from 'express'
 import { UserRoute } from '../modules/user/user.route'
 import { AuthRoute } from '../modules/auth/auth.route'
+import { TimeSlotRoute } from '../modules/timeSlot/timeSlot.route'
 
 const router = express.Router()
 
@@ -13,6 +14,10 @@ const moduleRoutes: any[] = [
   {
     path: '/auth',
     route: AuthRoute,
+  },
+  {
+    path: '/timeslot',
+    route: TimeSlotRoute,
   },
 ]
 
