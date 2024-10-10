@@ -1,12 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import { JwtPayload } from "jsonwebtoken";
-import sendResponse from "../../../shared/sendResponse";
-import httpStatus from "http-status";
-import { ClassScheduleService } from "./classSchedule.service";
-import { IClassSchedule } from "./classSchedule.interface";
-import pick from "../../../shared/pick";
-import { paginationFields } from "../../../constants/pagination";
-import { classScheduleFilterableFields } from "./classSchedule.constant";
+import { NextFunction, Request, Response } from "express"
+import sendResponse from "../../../shared/sendResponse"
+import httpStatus from "http-status"
+import { JwtPayload } from "jsonwebtoken"
+import { BookingService } from "./booking.service"
+import { IBooking } from "./booking.interface"
+import { bookingFilterableFields } from "./booking.constant"
+import pick from "../../../shared/pick"
+import { paginationFields } from "../../../constants/pagination"
 
 const create = async (
       req: Request,
@@ -16,15 +16,14 @@ const create = async (
       try {
             const user: JwtPayload | null = req.user;
             const userData = req.body
-            userData['createdBy'] = user!.userId;
-            userData['updatedBy'] = user!.userId;
+            userData['userId'] = user!.userId;
 
-            const result = await ClassScheduleService.create(userData)
+            const result = await BookingService.create(userData)
 
-            sendResponse<IClassSchedule>(res, {
+            sendResponse<IBooking>(res, {
                   statusCode: httpStatus.CREATED,
                   success: true,
-                  message: 'Successfully Created',
+                  message: 'Successfully Booked',
                   data: result,
             })
       } catch (error) {
@@ -32,18 +31,18 @@ const create = async (
       }
 }
 
-const findAllSchedules = async (
+const findAll = async (
       req: Request,
       res: Response,
       next: NextFunction,
 ) => {
       try {
-            const filters = pick(req.query, classScheduleFilterableFields);
+            const filters = pick(req.query, bookingFilterableFields);
             const paginationOptions = pick(req.query, paginationFields);
 
-            const result = await ClassScheduleService.findAllSchedules(filters, paginationOptions)
+            const result = await BookingService.findAll(filters, paginationOptions)
 
-            sendResponse<IClassSchedule[]>(res, {
+            sendResponse<IBooking[]>(res, {
                   statusCode: httpStatus.OK,
                   success: true,
                   message: 'Successfully retrieved',
@@ -55,7 +54,7 @@ const findAllSchedules = async (
       }
 }
 
-const trainerSchedules = async (
+const myBookings = async (
       req: Request,
       res: Response,
       next: NextFunction,
@@ -63,14 +62,16 @@ const trainerSchedules = async (
       try {
             const user = req.user;
             const userId = user?.userId;
+            const paginationOptions = pick(req.query, paginationFields);
 
-            const result = await ClassScheduleService.trainerSchedules(userId)
+            const result = await BookingService.myBookings(userId, paginationOptions)
 
-            sendResponse<IClassSchedule[]>(res, {
+            sendResponse<IBooking[]>(res, {
                   statusCode: httpStatus.OK,
                   success: true,
                   message: 'Successfully retrieved',
-                  data: result,
+                  meta: result.meta,
+                  data: result.data,
             })
       } catch (error) {
             next(error)
@@ -84,9 +85,9 @@ const findById = async (
 ) => {
       try {
             const { id } = req.params;
-            const result = await ClassScheduleService.findById(id);
+            const result = await BookingService.findById(id);
 
-            sendResponse<IClassSchedule>(res, {
+            sendResponse<IBooking>(res, {
                   statusCode: httpStatus.OK,
                   success: true,
                   message: 'Successfully retrieved',
@@ -104,12 +105,35 @@ const updatedById = async (
 ) => {
       try {
             const { id } = req.params;
-            const user = req.user;
             const updatedData = req.body;
-            updatedData['updatedBy'] = user?.userId;
-            const result = await ClassScheduleService.updatedById(id, updatedData);
 
-            sendResponse<IClassSchedule>(res, {
+            const result = await BookingService.updatedById(id, updatedData);
+
+            sendResponse<IBooking>(res, {
+                  statusCode: httpStatus.OK,
+                  success: true,
+                  message: 'Successfully updated',
+                  data: result,
+            })
+      } catch (error) {
+            next(error)
+      }
+}
+
+const cancelById = async (
+      req: Request,
+      res: Response,
+      next: NextFunction,
+) => {
+      try {
+            const user = req?.user;
+            const { id } = req.params;
+            const updatedData = req.body;
+            updatedData["userId"] = user?.userId
+
+            const result = await BookingService.cancelById(id, updatedData);
+
+            sendResponse<IBooking>(res, {
                   statusCode: httpStatus.OK,
                   success: true,
                   message: 'Successfully updated',
@@ -127,9 +151,9 @@ const deleteById = async (
 ) => {
       try {
             const { id } = req.params;
-            const result = await ClassScheduleService.deleteById(id);
+            const result = await BookingService.deleteById(id);
 
-            sendResponse<IClassSchedule>(res, {
+            sendResponse<IBooking>(res, {
                   statusCode: httpStatus.OK,
                   success: true,
                   message: 'Successfully deleted',
@@ -140,11 +164,12 @@ const deleteById = async (
       }
 }
 
-export const ClassScheduleController = {
+export const BookingController = {
       create,
-      findAllSchedules,
-      trainerSchedules,
       findById,
+      findAll,
+      myBookings,
       updatedById,
+      cancelById,
       deleteById
 }

@@ -36,7 +36,6 @@ const findAllUsers = async (
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IUser[]>> => {
   const { searchTerm, ...filtersData } = filters;
-  console.log(filtersData);
 
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);

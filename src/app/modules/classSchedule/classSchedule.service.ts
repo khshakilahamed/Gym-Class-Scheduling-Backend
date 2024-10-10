@@ -6,7 +6,7 @@ import { ClassSchedule } from "./classSchedule.model";
 import { IPaginationOptions } from "../../../interfaces/pagination";
 import { IGenericResponse } from "../../../interfaces/common";
 import { paginationHelpers } from "../../../helpers/paginationHelper";
-import { SortOrder } from "mongoose";
+import { SortOrder, Types } from "mongoose";
 import { classScheduleSearchableFields } from "./classSchedule.constant";
 import { convertTimeSlotToHour } from "./classSchedule.utils";
 
@@ -99,6 +99,15 @@ const findAllSchedules = async (
       };;
 }
 
+const trainerSchedules = async (id: string) => {
+      const trainerObjectId = new Types.ObjectId(id);
+      const schedules = await ClassSchedule.find({ trainers: trainerObjectId });
+      // const trainerId: Types.ObjectId = new Types.ObjectId(id);
+      // const mySchedules = schedules.map(schedule => schedule.trainers.includes(trainerId));
+
+      // console.log(schedules);
+      return schedules;
+}
 
 const findById = async (id: string): Promise<IClassSchedule> => {
       const classSchedule = await ClassSchedule.findById(id).populate(['trainers', 'timeSlotId']);
@@ -144,6 +153,7 @@ const deleteById = async (id: string): Promise<IClassSchedule | null> => {
 export const ClassScheduleService = {
       create,
       findAllSchedules,
+      trainerSchedules,
       findById,
       updatedById,
       deleteById,

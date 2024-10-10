@@ -4,6 +4,10 @@ import { ENUM_USER_ROLE } from '../../../enums/user';
 import { ClassScheduleController } from './classSchedule.controller';
 const router = express.Router();
 
+router.get('/trainer-schedule',
+      auth(ENUM_USER_ROLE.TRAINER),
+      ClassScheduleController.trainerSchedules
+);
 router.get('/',
       auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.TRAINEE, ENUM_USER_ROLE.TRAINER),
       ClassScheduleController.findAllSchedules
