@@ -3,6 +3,7 @@ import express from 'express'
 import { UserRoute } from '../modules/user/user.route'
 import { AuthRoute } from '../modules/auth/auth.route'
 import { TimeSlotRoute } from '../modules/timeSlot/timeSlot.route'
+import { ClassScheduleRoute } from '../modules/classSchedule/classSchedule.route'
 
 const router = express.Router()
 
@@ -18,6 +19,10 @@ const moduleRoutes: any[] = [
   {
     path: '/timeslot',
     route: TimeSlotRoute,
+  },
+  {
+    path: '/class-schedule',
+    route: ClassScheduleRoute,
   },
 ]
 

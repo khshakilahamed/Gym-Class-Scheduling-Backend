@@ -22,3 +22,11 @@ export type ICreateUserResponse = {
   // user: Partial<IUser>
   user: Omit<IUser, 'password'>
 }
+
+export type IUserFilters = {
+  searchTerm?: string;
+  id?: string;
+  name?: string;
+  email?: string;
+  role?: string;
+};
