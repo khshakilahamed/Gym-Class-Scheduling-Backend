@@ -336,6 +336,17 @@ The system enforces several business rules to ensure smooth operations. Admins a
   } ```
 
 
+
+### Installation Process
+
+- Install all dependencies
+
+```bash
+yarn add
+# or,
+npm install
+```
+
 ### [ER Diagram](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
 
 ![Alt text](/ER-diagram.png)
