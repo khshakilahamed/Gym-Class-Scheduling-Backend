@@ -346,7 +346,29 @@ yarn add
 # or,
 npm install
 ```
+- .env configure
+```
+NODE_ENV=development
+PORT=5000
 
-### [ER Diagram](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
+DATABASE_URL=<Your MongoDB Database URL>
+
+BCRYPT_SALT_ROUNDS=10
+
+JWT_SECRET=<Your JWT Secret>
+JWT_REFRESH_SECRET=<Your JWT Secret>
+JWT_EXPIRES_IN=<Expire duration>
+JWT_REFRESH_EXPIRES_IN=<Expire duration>
+```
+
+- Run Project
+
+```bash
+yarn dev
+# or,
+npm run dev
+```
+
+### ER Diagram [Click Me](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
 
 ![Alt text](/ER-diagram.png)
