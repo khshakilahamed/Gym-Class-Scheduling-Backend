@@ -55,3 +55,282 @@ The system enforces several business rules to ensure smooth operations. Admins a
   - Admin User can delete a Trainer User.
   - Admin User can create time slot.
   - Admin User can create class schedule according to time slot and assign the Trainer with the class schedule.
+
+### API Endpoints
+
+- Auth
+  - POST /auth/login
+  - POST /auth/register
+  - GET `[TRAINEE, ADMIN, TRAINER]` /auth/my-profile
+  - PATCH `[TRAINEE]` /auth/update-my-profile
+
+- User
+  - POST `[ADMIN]` /users/create-trainer
+  - PATCH `[ADMIN]` /users/update-user/6706d77a2730448761a0c8bd [can update only trainer info]
+  - GET `[ADMIN]` /users
+
+- Time Slot
+  - POST `[ADMIN]` /timeslot
+  - POST `[ADMIN]` /timeslot/670750e3060270e79ed94096
+  - GET /timeslot
+  - GET /timeslot/670750e3060270e79ed94096
+  - DELETE `[ADMIN]` /timeslot/670750e3060270e79ed94096
+
+- Class Schedule
+  - GET `[TRAINER]` /class-schedule/trainer-schedule
+  - GET `[TRAINER, TRAINEE, ADMIN]` /class-schedule
+  - GET `[TRAINER, TRAINEE, ADMIN]` /class-schedule/6707d23107eba10bbd01b6ce
+  - POST `[ADMIN]` /class-schedule
+  - PATCH `[ADMIN]` /class-schedule/6707d23107eba10bbd01b6ce
+  - DELETE `[ADMIN]` /class-schedule/6707d23107eba10bbd01b6ce
+
+- Booking
+  - POST `[TRAINEE]` /booking
+  - PATCH `[TRAINEE]` /booking/6707d23107eba10bbd01b6ce
+  - PATCH `[TRAINEE]` /booking/cancel/6707d23107eba10bbd01b6ce
+  - GET `[TRAINEE]` /booking/my-bookings
+  - GET `[ADMIN]` /booking
+  - GET `[ADMIN]` /booking/6707d23107eba10bbd01b6ce
+
+### `POST` Request Response
+- Auth
+  - POST /auth/register
+  ```
+  // request data
+  {
+    "name": "Example",
+    "email": "example@gmail.com",
+    "password": "123456"
+  }
+
+  // response data
+  {
+    "statusCode": 200,
+    "success": true,
+    "message": "Successfully registered",
+    "data": {
+        "user": {
+            "name": "Example",
+            "email": "example@gmail.com",
+            "password": "$2b$10$oaAv9.fDGPkvozrPdO9g7OAXYHZe.EQu4yJiiT3vevf2GfNLNC",
+            "role": "trainee",
+            "_id": "67087e293bdd25cdb60385db",
+            "createdAt": "2024-10-11T01:23:53.584Z",
+            "updatedAt": "2024-10-11T01:23:53.584Z",
+            "__v": 0
+        },
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzA4N2UyOTNiZGQyNWNkYjYwMzg1ZGIiLCJlbWFpbCI6ImFidWxrYXNlbTJAZ21haWwuY29tIiwicm9sZSI6InRyYWluZWUiLCJpYXQiOjE3Mjg2MDk4MzQsImV4cCI6MTczMTIwMTgzNH0"
+    }
+  }
+  ```
+  - POST /auth/login
+    ```
+    // request data
+    {
+      "email": "example@gmail.com",
+      "password": "123456"
+    }
+
+    // response data
+    {
+      "statusCode": 200,
+      "success": true,
+      "message": "Successfully logged in",
+      "data": {
+          "user": {
+              "email": "example@gmail.com",
+              "name": "Example"
+          },
+          "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzA3N2M1YTJiM2E0NmU3MDczYjE4Y2QiLCJlbWFpbCI6InRyYWluZXIzQGdtYWlsLmNvbSIsInJvbGUiOiJ0cmFpbmVyIiwiaWF0IjoxNzI4NjA5NzAzLCJleHAiOjE3MzEyMDE3MDN"
+      }
+    }
+    ```
+  
+- User
+  - POST `[ADMIN]` /users/create-trainer
+  ```
+  // request data
+  {
+    "name": "Example",
+    "email": "example@gmail.com",
+    "password": "123456"
+  }
+
+  // response data
+  {
+    "statusCode": 201,
+    "success": true,
+    "message": "Successfully Created",
+    "data": {
+        "user": {
+            "name": "Example",
+            "email": "example@gmail.com",
+            "password": "$2b$10$y9n3Ovg44ojKs5BOjyXnEOlIePaM.Bs9s8QvEk/UUtZ2Lu31YeJqa",
+            "role": "trainer",
+            "_id": "67087f343bdd25cdb60385df",
+            "createdAt": "2024-10-11T01:28:20.058Z",
+            "updatedAt": "2024-10-11T01:28:20.058Z",
+            "__v": 0
+        }
+    }
+  }
+  ```
+
+- Time Slot
+  - POST `[ADMIN]` /timeslot
+  ```
+  // request data
+  {
+    "startingTime": "20:00",
+    "endingTime": "22:00"
+  }
+
+  // response data
+  {
+    "statusCode": 201,
+    "success": true,
+    "message": "Successfully Created",
+    "data": {
+        "startingTime": "22:00",
+        "endingTime": "24:00",
+        "createdBy": {
+            "_id": "6706c75c841119000af57930",
+            "name": "example",
+            "email": "example@gmail.com",
+            "role": "admin",
+            "createdAt": "2024-10-09T18:11:40.043Z",
+            "updatedAt": "2024-10-09T18:40:24.224Z",
+            "__v": 0
+        },
+        "updatedBy": {
+            "_id": "6706c75c841119000af57930",
+            "name": "example",
+            "email": "example@gmail.com",
+            "role": "admin",
+            "createdAt": "2024-10-09T18:11:40.043Z",
+            "updatedAt": "2024-10-09T18:40:24.224Z",
+            "__v": 0
+        },
+        "_id": "67087fd73bdd25cdb60385e3",
+        "createdAt": "2024-10-11T01:31:03.882Z",
+        "updatedAt": "2024-10-11T01:31:03.882Z",
+        "__v": 0
+    }
+  }
+  ```
+
+
+
+
+
+- Class Schedule
+   - POST `[ADMIN]` /class-schedule
+   ```
+   // request data
+   {
+    "title": "Morning 2",
+    "day": "sunday",
+    "maxTrainees": 10,
+    "trainers": ["6707d4b10fc6149ae51ecded", "67077c602b3a46e7073b18d0"],
+    "timeSlotId": "6707c7aa60076cef1683db7f"
+  }
+
+  // response data
+  {
+    "statusCode": 201,
+    "success": true,
+    "message": "Successfully Created",
+    "data": {
+        "title": "Morning 3",
+        "day": "sunday",
+        "maxTrainees": 10,
+        "trainers": [
+            {
+                "_id": "67077c602b3a46e7073b18d0",
+                "name": "example",
+                "email": "example@gmail.com",
+                "role": "trainer",
+                "createdAt": "2024-10-10T07:04:00.657Z",
+                "updatedAt": "2024-10-10T07:04:00.657Z",
+                "__v": 0
+            }
+        ],
+        "timeSlotId": "6707c7aa60076cef1683db7f",
+        "duration": 2,
+        "createdBy": {
+            "_id": "6706c75c841119000af57930",
+            "name": "example",
+            "email": "example@gmail.com",
+            "role": "admin",
+            "createdAt": "2024-10-09T18:11:40.043Z",
+            "updatedAt": "2024-10-09T18:40:24.224Z",
+            "__v": 0
+        },
+        "updatedBy": {
+            "_id": "6706c75c841119000af57930",
+            "name": "example",
+            "email": "example@gmail.com",
+            "role": "admin",
+            "createdAt": "2024-10-09T18:11:40.043Z",
+            "updatedAt": "2024-10-09T18:40:24.224Z",
+            "__v": 0
+        },
+        "_id": "670880f33bdd25cdb60385f3",
+        "createdAt": "2024-10-11T01:35:47.826Z",
+        "updatedAt": "2024-10-11T01:35:47.826Z",
+        "__v": 0
+    }
+  }
+   ```
+
+
+- Booking
+  - POST `[TRAINEE]` /booking
+  ```
+  // request data
+  {
+    "classScheduleId": "6707d4b10fc6149ae51ecded",
+    "date": "2024-10-28"
+  }
+
+  // response data
+  {
+    "statusCode": 201,
+    "success": true,
+    "message": "Successfully Booked",
+    "data": {
+        "classScheduleId": {
+            "_id": "6707d4b10fc6149ae51ecded",
+            "title": "Morning 1",
+            "day": "monday",
+            "maxTrainees": 10,
+            "trainers": [
+                "67077c5a2b3a46e7073b18cd",
+                "67077c602b3a46e7073b18d0"
+            ],
+            "timeSlotId": "6707c7aa60076cef1683db7f",
+            "duration": 2,
+            "createdBy": "6706c75c841119000af57930",
+            "updatedBy": "6706c75c841119000af57930",
+            "createdAt": "2024-10-10T13:20:49.099Z",
+            "updatedAt": "2024-10-10T13:21:31.171Z",
+            "__v": 0
+        },
+        "userId": {
+            "_id": "67080f3d893d67117a0e458f",
+            "name": "example",
+            "email": "example@gmail.com",
+            "role": "trainee",
+            "createdAt": "2024-10-10T17:30:37.265Z",
+            "updatedAt": "2024-10-10T17:30:37.265Z",
+            "__v": 0
+        },
+        "date": "2024-10-28",
+        "isCancel": false,
+        "_id": "670881d43bdd25cdb60385fb",
+        "createdAt": "2024-10-11T01:39:32.274Z",
+        "updatedAt": "2024-10-11T01:39:32.274Z",
+        "__v": 0
+    }
+}
+  ```

@@ -8,7 +8,7 @@ router.post('/login', AuthController.loginUser)
 router.post('/register', AuthController.traineeRegister) // trainee register only
 router.get(
   '/my-profile',
-  auth(ENUM_USER_ROLE.TRAINEE),
+  auth(ENUM_USER_ROLE.TRAINEE, ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.TRAINER),
   AuthController.myProfile,
 )
 router.patch(
