@@ -332,7 +332,7 @@ The system enforces several business rules to ensure smooth operations. Admins a
         "updatedAt": "2024-10-11T01:39:32.274Z",
         "__v": 0
     }
-}```
+  } ```
 
 
 ### [ER Diagram](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
