@@ -334,3 +334,8 @@ The system enforces several business rules to ensure smooth operations. Admins a
     }
 }
   ```
+
+
+### [ER Diagram Link](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
+
+![Alt text](/ER-diagram.png)
