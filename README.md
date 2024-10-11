@@ -1,7 +1,7 @@
 ## Important Links
 
-- [Live Server Link](https://gym-schedule-backend-eight.vercel.app/)
-- [ER Diagram Link](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing)
+- [Live Server Link](https://gym-schedule-backend-eight.vercel.app/){:target="_blank"} 
+- [ER Diagram Link](https://drive.google.com/file/d/14HRVRY1f443zaUQKPO0yJA5NM7DCHVwv/view?usp=sharing){:target="_blank"} 
 
 ## Project Discussion:
 
