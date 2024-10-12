@@ -28,11 +28,12 @@ const loginUser = async (
   }
 
   // access token & refresh token
-  const { _id, email: userEmail, role } = isUserExist
+  const { _id, email: userEmail, role, name } = isUserExist
 
   const accessToken = jwtHelpers.createToken(
     {
       userId: _id,
+      name: name,
       email: userEmail,
       role,
     },
@@ -43,6 +44,7 @@ const loginUser = async (
   const refreshToken = jwtHelpers.createToken(
     {
       userId: _id,
+      name: name,
       email: userEmail,
       role,
     },
@@ -79,11 +81,12 @@ const traineeRegister = async (
   }
 
   // access token & refresh token
-  const { _id, email, role } = newUser
+  const { _id, email, role, name } = newUser
 
   const accessToken = jwtHelpers.createToken(
     {
       userId: _id,
+      name,
       email,
       role,
     },
@@ -94,6 +97,7 @@ const traineeRegister = async (
   const refreshToken = jwtHelpers.createToken(
     {
       userId: _id,
+      name,
       email,
       role,
     },
