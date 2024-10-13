@@ -84,7 +84,11 @@ const findAll = async (
   }
 
   const result = await Booking.find(whereCondition)
-    .populate(['classScheduleId', 'userId'])
+    .populate({
+      path: 'classScheduleId',
+      populate: ['timeSlotId', 'trainers'],
+    })
+    .populate(['userId'])
     .sort(sortConditions)
     .skip(skip)
     .limit(limit)
