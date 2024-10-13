@@ -101,7 +101,7 @@ const findAllSchedules = async (
 
 const trainerSchedules = async (id: string) => {
       const trainerObjectId = new Types.ObjectId(id);
-      const schedules = await ClassSchedule.find({ trainers: trainerObjectId });
+      const schedules = await ClassSchedule.find({ trainers: trainerObjectId }).populate("timeSlotId");
       // const trainerId: Types.ObjectId = new Types.ObjectId(id);
       // const mySchedules = schedules.map(schedule => schedule.trainers.includes(trainerId));
 

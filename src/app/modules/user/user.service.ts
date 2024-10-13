@@ -20,6 +20,10 @@ const createTrainer = async (payload: IUser): Promise<ICreateUserResponse> => {
     payload.role = ENUM_USER_ROLE.TRAINER;
   }
 
+  if (payload.password === "") {
+    payload.password = "123456";
+  }
+
   const newUser = await User.create(payload)
 
   if (!newUser) {
@@ -87,6 +91,16 @@ const findAllUsers = async (
   };;
 }
 
+const findById = async (id: string): Promise<IUser> => {
+  const result = await User.findById(id);
+
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not found');
+  }
+
+  return result;
+}
+
 const updateUser = async (id: string, updatedData: Partial<IUser>): Promise<IUser> => {
   const existUser = await User.findById(id);
 
@@ -110,5 +124,6 @@ const updateUser = async (id: string, updatedData: Partial<IUser>): Promise<IUse
 export const UserService = {
   createTrainer,
   findAllUsers,
+  findById,
   updateUser,
 }

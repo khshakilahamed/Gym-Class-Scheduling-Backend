@@ -50,6 +50,27 @@ const findAllUsers = async (
   }
 }
 
+const findById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+
+    const result = await UserService.findById(id)
+
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Successfully retrieved',
+      data: result,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 const updateUser = async (
   req: Request,
   res: Response,
@@ -75,5 +96,6 @@ const updateUser = async (
 export const UserController = {
   createTrainer,
   findAllUsers,
+  findById,
   updateUser
 }
